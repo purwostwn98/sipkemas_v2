@@ -628,11 +628,19 @@ class Mitra extends BaseController
                                 'required' => '{field} tidak boleh kosong'
                             ]
                         ],
+                        'tgPenyerahan' => [
+                            'label' => 'Tanggal Penyerahan',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong'
+                            ]
+                        ]
                     ]);
                     if (!$valid2) {
                         $msg = [
                             'error' => [
                                 'nilai' => $validation->getError('nilai'),
+                                'tgPenyerahan' => $validation->getError('tgPenyerahan'),
                                 'token' => csrf_hash(),
                             ]
                         ];
@@ -653,6 +661,8 @@ class Mitra extends BaseController
 
                 $data = [
                     'nilaiDisetujui' => $numbNilaiDisetujui,
+                    'bentukPenyerahan' => $this->request->getPost('bentukPenyerahan'),
+                    'tgPenyerahan' => $this->request->getPost('tgPenyerahan'),
                     'ketRecSurvey' => $this->request->getVar('alasan'),
                     'tgRecSurvey' => new Time('now', 'Asia/Jakarta', 'en_US'),
                     'idStsAjuan' => $idStsAjuan

@@ -13,6 +13,7 @@ use App\Models\MitraModel;
 use App\Models\BantuanModel;
 use App\Models\SyaratModel;
 use App\Models\UsersModel;
+use App\Models\PrivModel;
 use CodeIgniter\I18n\Time;
 use Mpdf\Mpdf;
 
@@ -28,7 +29,7 @@ class Kesra extends BaseController
     protected $bantuanModel;
     protected $syaratModel;
     protected $userModel;
-
+    protected $privModel;
     public function __construct()
     {
         $this->session = session();
@@ -42,6 +43,7 @@ class Kesra extends BaseController
         $this->bantuanModel = new BantuanModel();
         $this->syaratModel = new SyaratModel();
         $this->userModel = new UsersModel();
+        $this->privModel = new PrivModel();
     }
 
     //cek privilege sbg petugas kesra
@@ -879,7 +881,8 @@ class Kesra extends BaseController
         $data = [
             'bttn' => 'user_mng',
             'muser' => $this->userModel->join('eprivuser', 'eprivuser.idPrivUser = muser.idPrivUser')
-                ->findAll()
+                ->findAll(),
+            'privUser' => $this->privModel->where('idPrivUser >', 1)->findAll()
         ];
         return view('kesra/user_management', $data);
     }
@@ -963,6 +966,117 @@ class Kesra extends BaseController
                     return redirect()->to("/gerbangska/logout");
                 }
             }
+        }
+    }
+
+    public function doTambahUser()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'pengguna' => [
+                    'label' => 'Pengguna',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong'
+                    ]
+                ],
+                'lembaga' => [
+                    'label' => 'Lembaga',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong'
+                    ]
+                ],
+                // is_unique[table.field,ignore_field,ignore_value]
+                'username' => [
+                    'label' => 'Username',
+                    'rules' => 'required|is_unique[muser.User]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'is_unique' => '{field} sudah digunakan',
+                    ]
+                ],
+                'password' => [
+                    'label' => 'Password',
+                    'rules' => 'required|min_length[8]|max_length[100]',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'min_length' => '{field} minimal 8 karakter',
+                        'max_length' => '{field} maksimal 100 karakter',
+                    ]
+                ],
+                'confirm_password' => [
+                    'label' => 'Confirm Password',
+                    'rules' => 'matches[password]',
+                    'errors' => [
+                        'required' => '{field} tidak sesuai',
+                    ]
+                ],
+            ]);
+
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'pengguna' => $validation->getError('pengguna'),
+                        'lembaga' => $validation->getError('lembaga'),
+                        'username' => $validation->getError('username'),
+                        'password' => $validation->getError('password'),
+                        'confirm_password' => $validation->getError('confirm_password'),
+                        'token' => csrf_hash()
+                    ]
+                ];
+            } else {
+                $lembaga = $this->request->getPost('lembaga');
+                if ($lembaga == 'pemerintah') {
+                    $kode_lbg = 0;
+                } else {
+                    $kode_lbg = $lembaga;
+                }
+                $dataSimpan = [
+                    'idPrivUser' => $this->request->getVar('privUser'),
+                    'Namauser' => $this->request->getVar('pengguna'),
+                    'User' => $this->request->getVar('username'),
+                    'Password' => sha1($this->request->getVar('confirm_password')),
+                    'idLembaga' => $kode_lbg,
+                ];
+                if ($this->userModel->save($dataSimpan)) {
+                    $msg = [
+                        'berhasil' => [
+                            'pesan' => 'User baru berhasil ditambahkan',
+                        ]
+                    ];
+                } else {
+                    $msg = [
+                        'gagal' => [
+                            'pesan' => 'User baru gagal ditambahkan',
+                        ]
+                    ];
+                }
+            }
+            echo json_encode($msg);
+        } else {
+            exit('Maaf perintah anda tidak dapat diproses');
+        }
+    }
+
+    public function doHapusUser()
+    {
+        if ($this->request->isAJAX()) {
+            $id_user = $this->request->getVar('id_user');
+
+            if ($this->userModel->where('idUser', $id_user)->delete()) {
+                $msg = [
+                    'berhasil' => "User berhasil dihapus"
+                ];
+            } else {
+                $msg = [
+                    'gagal' => "User gagal dihapus"
+                ];
+            }
+            echo json_encode($msg);
+        } else {
+            exit('Maaf perintah tidak dapat diproses');
         }
     }
 

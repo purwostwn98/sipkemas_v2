@@ -313,17 +313,46 @@ $tglajuan = explode('-', $ajuan['tgAjuan']);
                     <?= $ajuan['ketRecSurvey']; ?>
                 </div>
             </div>
-            <hr class="m-0 p-1">
-            <div class="row bg-white darker">
-                <div class="col-md-4">
-                    <label for="">
-                        <b>Nilai bantuan disetujui</b>
-                    </label>
+            <?php if ($ajuan['idStsAjuan'] == 7) { ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Nilai bantuan disetujui</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Bentuk Penyerahan</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <?= $ajuan['bentukPenyerahan']; ?>
+                    </div>
                 </div>
-            </div>
+                <?php if ($ajuan['tgPenyerahan'] != '') { ?>
+                    <hr class="m-0 p-1">
+                    <div class="row bg-white darker">
+                        <div class="col-md-4">
+                            <label for="">
+                                <b>Tgl Penyerahan</b>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <?php $tgPenyerahan = explode('-', $ajuan['tgPenyerahan']); ?>
+                            <span class="bg-info text-white p-1">
+                                <?= $tgPenyerahan[2] . ' ' . $bulan[(int)$tgPenyerahan[1]] . ' ' . $tgPenyerahan[0]; ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 <?php } ?>

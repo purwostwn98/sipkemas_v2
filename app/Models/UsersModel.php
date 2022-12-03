@@ -9,6 +9,13 @@ class UsersModel extends Model
     protected $table = "muser";
     protected $primaryKey = 'idUser';
     protected $allowedFields = [
-        'Namauser', 'User', 'Password', 'telepon', 'email'
+        'idPrivUser', 'Namauser', 'User', 'Password', 'telepon', 'email', 'idLembaga', 'created_at', 'updated_at'
     ];
+    protected $useTimestamps = true;
+}
+
+class PrivModel extends Model
+{
+    protected $table = "eprivuser";
+    protected $primaryKey = 'idPrivUser';
 }

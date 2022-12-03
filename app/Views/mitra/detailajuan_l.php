@@ -592,6 +592,31 @@ $tglajuan = explode('-', $ajuan['tgAjuan']);
                             <small id="nilai" class="form-text text-muted">Isikan nominal bantuan misalnya 750000 (Jika tidak disetujui isikan 0)</small>
                         </div>
                     </div>
+                    <div class="row bg-white darker py-2">
+                        <div class="col-md-4">
+                            <label for="bentukPenyerahan">
+                                <b>Bentuk Penyerahan</b>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <select id="bentukPenyerahan" class="form-control" name="bentukPenyerahan">
+                                <option selected value="" disabled>--Pilih--</option>
+                                <option value="Uang Cash">Uang Cash</option>
+                                <option value="Uang Transfer">Uang Transfer</option>
+                                <option value="Barang">Barang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row bg-white darker py-2">
+                        <div class="col-md-4">
+                            <label for="tgPenyerahan">
+                                <b>Tgl Penyerahan</b>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="tgPenyerahan" id="tgPenyerahan">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -652,6 +677,31 @@ $tglajuan = explode('-', $ajuan['tgAjuan']);
                         <small id="nilai" class="form-text text-muted">Isikan nominal bantuan misalnya 750000 (Jika tidak disetujui isikan 0)</small>
                     </div>
                 </div>
+                <div class="row bg-white darker py-2">
+                    <div class="col-md-4">
+                        <label for="bentukPenyerahan">
+                            <b>Bentuk Penyerahan</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select id="bentukPenyerahan" class="form-control" name="bentukPenyerahan">
+                            <option selected value="" disabled>--Pilih--</option>
+                            <option value="Uang Cash">Uang Cash</option>
+                            <option value="Uang Transfer">Uang Transfer</option>
+                            <option value="Barang">Barang</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row bg-white darker py-2">
+                    <div class="col-md-4">
+                        <label for="tgPenyerahan">
+                            <b>Tgl Penyerahan</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" name="tgPenyerahan" id="tgPenyerahan">
+                    </div>
+                </div>
             </div>
         </div>
         <?= form_close(); ?>
@@ -688,17 +738,46 @@ $tglajuan = explode('-', $ajuan['tgAjuan']);
                     <?= $ajuan['ketRecSurvey']; ?>
                 </div>
             </div>
-            <hr class="m-0 p-1">
-            <div class="row bg-white darker">
-                <div class="col-md-4">
-                    <label for="">
-                        <b>Nilai bantuan disetujui</b>
-                    </label>
+            <?php if ($ajuan['idStsAjuan'] == 7) { ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Nilai bantuan disetujui</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Bentuk Penyerahan</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <?= $ajuan['bentukPenyerahan']; ?>
+                    </div>
                 </div>
-            </div>
+                <?php if ($ajuan['tgPenyerahan'] != '') { ?>
+                    <hr class="m-0 p-1">
+                    <div class="row bg-white darker">
+                        <div class="col-md-4">
+                            <label for="">
+                                <b>Tgl Penyerahan</b>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <?php $tgPenyerahan = explode('-', $ajuan['tgPenyerahan']); ?>
+                            <span class="bg-info text-white p-1">
+                                <?= $tgPenyerahan[2] . ' ' . $bulan[(int)$tgPenyerahan[1]] . ' ' . $tgPenyerahan[0]; ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 <?php } ?>
@@ -846,6 +925,8 @@ $tglajuan = explode('-', $ajuan['tgAjuan']);
                                         swal("Mohon Maaf!", response.error.persetujuan, "error");
                                     } else if (response.error.nilai) {
                                         swal("Mohon Maaf!", response.error.nilai, "error");
+                                    } else if (response.error.tgPenyerahan) {
+                                        swal("Mohon Maaf!", response.error.tgPenyerahan, "error");
                                     }
                                     $("input[name='csrf_test_name']").val(response.error.token);
                                 }

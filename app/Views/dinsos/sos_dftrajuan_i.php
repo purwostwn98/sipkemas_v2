@@ -73,13 +73,6 @@ $bulan = array(
                                                 </span>
                                             </td>
                                             <td><?= $proses['NamaMitra']; ?>: <?= $proses['namaProgram']; ?></td>
-                                            <!-- <td class="text-center">
-                                                <span class="fa fa-star <?= ($proses['idRecDinsos'] >= 1) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($proses['idRecDinsos'] >= 2) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($proses['idRecDinsos'] >= 3) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($proses['idRecDinsos'] >= 4) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($proses['idRecDinsos'] == 5) ? 'oke' : '' ?>"></span>
-                                            </td> -->
                                             <td>
                                                 <span style="border-radius: 5px;" <?php if ($proses['idStsAjuan'] == 1) {
                                                                                         echo ("class='small text-white bg-gray-600 p-1'");
@@ -155,13 +148,6 @@ $bulan = array(
                                                 </span>
                                             </td>
                                             <td><?= $selesai['NamaMitra']; ?>: <?= $selesai['namaProgram']; ?></td>
-                                            <!-- <td class="text-center">
-                                                <span class="fa fa-star <?= ($selesai['idRecDinsos'] >= 1) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($selesai['idRecDinsos'] >= 2) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($selesai['idRecDinsos'] >= 3) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($selesai['idRecDinsos'] >= 4) ? 'oke' : '' ?>"></span>
-                                                <span class="fa fa-star <?= ($selesai['idRecDinsos'] == 5) ? 'oke' : '' ?>"></span>
-                                            </td> -->
                                             <td>
                                                 <span style="border-radius: 5px;" <?php if ($selesai['idStsAjuan'] == 6) {
                                                                                         echo ("class='small text-white bg-danger p-1'");

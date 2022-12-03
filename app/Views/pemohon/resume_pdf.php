@@ -238,13 +238,34 @@ $bulan = array(
                 <td style="width: 3%;">:</td>
                 <td style="text-align: left;"><?= $ajuan['ketRecSurvey']; ?></td>
             </tr>
-            <tr>
-                <td style="width: 40%; text-align:left;">Nilai yang Disetujui</td>
-                <td style="width: 3%">:</td>
-                <td style="text-align:left;">
-                    Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
-                </td>
-            </tr>
+            <?php if ($ajuan['idStsAjuan'] == 7) { ?>
+                <tr>
+                    <td style="width: 40%; text-align:left;">Nilai yang Disetujui</td>
+                    <td style="width: 3%">:</td>
+                    <td style="text-align:left;">
+                        Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; text-align:left;">Bentuk Penyerahan</td>
+                    <td style="width: 3%">:</td>
+                    <td style="text-align:left;">
+                        <?= $ajuan['bentukPenyerahan']; ?>
+                    </td>
+                </tr>
+                <?php if ($ajuan['tgPenyerahan'] != '') { ?>
+                    <tr>
+                        <td style="width: 40%; text-align:left;">Tgl Penyerahan</td>
+                        <td style="width: 3%">:</td>
+                        <td style="text-align:left;">
+                            <?php $tgPenyerahan = explode('-', $ajuan['tgPenyerahan']); ?>
+                            <span class="bg-info text-white p-1">
+                                <?= $tgPenyerahan[2] . ' ' . $bulan[(int)$tgPenyerahan[1]] . ' ' . $tgPenyerahan[0]; ?>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
         </table>
     <?php } ?>
 </body>

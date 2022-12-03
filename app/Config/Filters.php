@@ -115,23 +115,27 @@ class Filters extends BaseConfig
             // 'honeypot',
             'pemohonFilter' => ['except' => [
                 'pemohon', 'pemohon/*',
+                'Dinamis', 'dinamis/*'
             ]],
             'kelurahanFilter' => ['except' => [
                 'kelurahan', 'kelurahan/*',
                 'kelurahan', 'kelurahan/*/*',
                 'pemohon', 'pemohon/alur_bantuan',
-                'gerbangska', 'gerbangska/edit_user'
+                'gerbangska', 'gerbangska/edit_user',
+                'Dinamis', 'dinamis/*'
             ]],
             'dinsosFilter' => ['except' => [
                 'dinsos', 'dinsos/*',
                 'dinsos', 'dinsos/*/*',
-                'gerbangska', 'gerbangska/edit_user'
+                'gerbangska', 'gerbangska/edit_user',
+                'Dinamis', 'dinamis/*'
             ]],
             'kesraFilter' => ['except' => [
                 'kesra', 'kesra/*',
                 'kesra', 'kesra/*/*',
                 'mitra', 'mitra/dashboard',
-                'gerbangska', 'gerbangska/edit_user'
+                'gerbangska', 'gerbangska/edit_user',
+                'Dinamis', 'dinamis/*'
             ]],
             'mitraFilter' => ['except' => [
                 'mitra', 'mitra/*',
@@ -146,7 +150,8 @@ class Filters extends BaseConfig
                 'kesra', 'kesra/createKodeBantuan',
                 'kesra', 'kesra/doTambahProgram',
                 'kesra', 'kesra/doHapusProgram',
-                'gerbangska', 'gerbangska/edit_user'
+                'gerbangska', 'gerbangska/edit_user',
+                'Dinamis', 'dinamis/*'
             ]],
         ],
     ];

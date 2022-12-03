@@ -365,55 +365,6 @@ $bulan = array(
     </div>
 </div>
 
-<!-- Hasil Rekomendasi Dinsos -->
-<!-- <?php if ($idStsAjuan >= 3) { ?>
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 bg-warning">
-            <h6 class="m-0 font-weight-bold text-white">Rekomendasi Dinas Sosial</h6>
-        </div>
-        <div class="card-body">
-            <div class="row bg-white darker">
-                <div class="col-md-4">
-                    <label for="">
-                        <b>Tingkat Rekomendasi</b>
-                    </label>
-                </div>
-                <div class="col-md-8">
-                    <?php if ($ajuan['idRecDinsos'] == 1) { ?>
-                        Tidak Direkomendasikan
-                    <?php } elseif ($ajuan['idRecDinsos'] == 2) { ?>
-                        Kurang Direkomendasikan
-                    <?php } elseif ($ajuan['idRecDinsos'] == 3) { ?>
-                        Direkomendasikan
-                    <?php } elseif ($ajuan['idRecDinsos'] == 4) { ?>
-                        Lebih Direkomendasikan
-                    <?php } elseif ($ajuan['idRecDinsos'] == 5) { ?>
-                        Sangat Direkomendasikan
-                    <?php } ?> &nbsp;
-                    (
-                    <span class="fa fa-star <?= ($ajuan['idRecDinsos'] >= 1) ? 'oke' : '' ?>"></span>
-                    <span class="fa fa-star <?= ($ajuan['idRecDinsos'] >= 2) ? 'oke' : '' ?>"></span>
-                    <span class="fa fa-star <?= ($ajuan['idRecDinsos'] >= 3) ? 'oke' : '' ?>"></span>
-                    <span class="fa fa-star <?= ($ajuan['idRecDinsos'] >= 4) ? 'oke' : '' ?>"></span>
-                    <span class="fa fa-star <?= ($ajuan['idRecDinsos'] == 5) ? 'oke' : '' ?>"></span>
-                    )
-                </div>
-            </div>
-            <hr class="m-0 p-1">
-            <div class="row bg-white darker">
-                <div class="col-md-4">
-                    <label for="">
-                        <b>Ket. Rekomendasi</b>
-                    </label>
-                </div>
-                <div class="col-md-8">
-                    <?= $ajuan['ketRecDinsos']; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php } ?> -->
-
 <!-- Tindakan Kesra -->
 <?php if ($ajuan['idStsAjuan'] == 3) { ?>
     <?= form_open("/kesra/updateAjuan", ['class' => 'formRekomendasi']); ?>
@@ -719,17 +670,46 @@ $bulan = array(
                     <?= $ajuan['ketRecSurvey']; ?>
                 </div>
             </div>
-            <hr class="m-0 p-1">
-            <div class="row bg-white darker">
-                <div class="col-md-4">
-                    <label for="">
-                        <b>Nilai bantuan disetujui</b>
-                    </label>
+            <?php if ($ajuan['idStsAjuan'] == 7) { ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Nilai bantuan disetujui</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Bentuk Penyerahan</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <?= $ajuan['bentukPenyerahan']; ?>
+                    </div>
                 </div>
-            </div>
+                <?php if ($ajuan['tgPenyerahan'] != '') { ?>
+                    <hr class="m-0 p-1">
+                    <div class="row bg-white darker">
+                        <div class="col-md-4">
+                            <label for="">
+                                <b>Tgl Penyerahan</b>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <?php $tgPenyerahan = explode('-', $ajuan['tgPenyerahan']); ?>
+                            <span class="bg-info text-white p-1">
+                                <?= $tgPenyerahan[2] . ' ' . $bulan[(int)$tgPenyerahan[1]] . ' ' . $tgPenyerahan[0]; ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 <?php } ?>

@@ -58,9 +58,15 @@ $session = \Config\Services::session();
                 <div class="form-group row">
                     <label for="desProgram" class="col-sm-2 col-form-label">New Password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control <?= ($session->getFlashdata('errorPassword')) ? 'is-invalid border-left-danger' : 'border-left-primary' ?>" id="password" name="new_pass" required>
+                        <input type="password" class="form-control <?= ($session->getFlashdata('errorPassword')) ? 'is-invalid border-left-danger' : 'border-left-primary' ?>" id="password_validation" name="new_pass" required>
                         <div class="invalid-feedback invalidPassword text-left">
                             <?php echo session()->getFlashdata('errorPassword'); ?>
+                        </div>
+                        <div class="password_required">
+                            <small class="form-text kecil"><i class="fa fa-times" aria-hidden="true"></i> <span class="text-muted"> Minimal satu huruf kecil</span></small>
+                            <small class="form-text kapital"><i class="fa fa-times" aria-hidden="true"></i> <span class="text-muted"> Minimal satu huruf kapital</span></small>
+                            <small class="form-text angka"><i class="fa fa-times" aria-hidden="true"></i><span class="text-muted"> Minimal satu angka</span></small>
+                            <small class="form-text panjang"><i class="fa fa-times" aria-hidden="true"></i><span class="text-muted"> Minimal 8 karakter</span></small>
                         </div>
                     </div>
                 </div>
@@ -81,7 +87,7 @@ $session = \Config\Services::session();
                         </span>
                         <span class="text">Kembali</span>
                     </a>
-                    <button type="submit" class="btn btn-md btn-success btn-icon-split btnUpdate">
+                    <button type="submit" style="pointer-events: none;" class="btn btn-md btn-success btn-icon-split btnUpdate">
                         <span class="icon text-white-50">
                             <i class="fas fa-check fa-md"></i>
                         </span>
@@ -94,9 +100,7 @@ $session = \Config\Services::session();
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="<?= base_url(); ?>/assets/vendor/jquery/jquery.min2.js"></script>
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script type="text/javascript">
     function updateUser() {
         $.ajax({
@@ -132,5 +136,53 @@ $session = \Config\Services::session();
 </script>
 
 
+<script>
+    $('#password_validation').on('focus', function() {
+        $('#password_required').slideDown();
+    });
+    $('#password_validation').on('blur', function() {
+        $('#password_required').slideUp();
+    });
+    $('#password_validation').on('keyup', function() {
+        passValue = $(this).val();
+
+        if (passValue.match(/[a-z]/g)) {
+            $('.kecil').html('<i class="fa fa-check text-success" aria-hidden="true"></i> <span class="text-success"> Minimal satu huruf kecil</span></small>')
+            $('.kecil').addClass('active');
+        } else {
+            $('.kecil').html('<i class="fa fa-times" aria-hidden="true"></i> <span class="text-muted"> Minimal satu huruf kecil</span></small>')
+            $('.kecil').removeClass('active');
+        }
+        if (passValue.match(/[A-Z]/g)) {
+            $('.kapital').html('<i class="fa fa-check text-success" aria-hidden="true"></i> <span class="text-success"> Minimal satu huruf kapital</span></small>')
+            $('.kapital').addClass('active');
+        } else {
+            $('.kapital').html('<i class="fa fa-times" aria-hidden="true"></i> <span class="text-muted"> Minimal satu huruf kapital</span></small>')
+            $('.kapital').removeClass('active');
+        }
+        if (passValue.match(/[0-9]/g)) {
+            $('.angka').html('<i class="fa fa-check text-success" aria-hidden="true"></i> <span class="text-success"> Minimal satu angka</span></small>')
+            $('.angka').addClass('active');
+        } else {
+            $('.angka').html('<i class="fa fa-times" aria-hidden="true"></i> <span class="text-muted"> Minimal satu angka</span></small>')
+            $('.angka').removeClass('active');
+        }
+        if (passValue.length >= 8) {
+            $('.panjang').html('<i class="fa fa-check text-success" aria-hidden="true"></i> <span class="text-success"> Minimal 8 karakter</span></small>')
+            $('.panjang').addClass('active');
+        } else {
+            $('.panjang').html('<i class="fa fa-times" aria-hidden="true"></i> <span class="text-muted"> Minimal 8 karakter</span></small>')
+            $('.panjang').removeClass('active');
+        }
+
+        $('small').each(function(index, el) {
+            if ($(this).hasClass('active')) {
+                $('.btnUpdate').css('pointer-events', 'auto');
+            } else {
+                $('.btnUpdate').css('pointer-events', 'none');
+            }
+        })
+    });
+</script>
 
 <?= $this->endSection(); ?>

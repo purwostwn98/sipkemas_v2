@@ -351,30 +351,6 @@
                     <?php } ?>
                 </div>
             </div>
-            <?php if ($ajuan['idJnsAjuan'] == 0) { ?>
-                <?php
-                $tglDinsos = explode('-', $ajuan['tgRecDinsos']);
-                ?>
-                <hr class="m-0 p-1">
-                <div class="row bg-white darker">
-                    <div class="col-md-4">
-                        <label for="">
-                            <b>Proses Dinsos</b>
-                        </label>
-                    </div>
-                    <div class="col-md-8">
-                        <?php if ($ajuan['idStsAjuan'] >= 3) { ?>
-                            <span class="bg-success text-white p-1">
-                                <?= $tglDinsos[2] . ' ' . $bulan[(int)$tglDinsos[1]] . ' ' . $tglDinsos[0]; ?>
-                            </span>
-                        <?php } elseif ($ajuan['idStsAjuan'] == 2) {
-                            echo "<span class='bg-warning text-white p-1'>Sedang diproses</span>";
-                        } else {
-                            echo "<span class='bg-secondary text-white p-1'>Belum diproses</span>";
-                        } ?>
-                    </div>
-                </div>
-            <?php } ?>
             <hr class="m-0 p-1">
             <div class="row bg-white darker">
                 <div class="col-md-4">
@@ -467,17 +443,46 @@
                     <?= $ajuan['ketRecSurvey']; ?>
                 </div>
             </div>
-            <hr class="m-0 p-1">
-            <div class="row bg-white darker">
-                <div class="col-md-4">
-                    <label for="">
-                        <b>Nilai bantuan disetujui</b>
-                    </label>
+            <?php if ($ajuan['idStsAjuan'] == 7) { ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Nilai bantuan disetujui</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    Rp. <?= number_format((float)$ajuan['nilaiDisetujui'], 0, ',', '.'); ?>
+                <hr class="m-0 p-1">
+                <div class="row bg-white darker">
+                    <div class="col-md-4">
+                        <label for="">
+                            <b>Bentuk Penyerahan</b>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <?= $ajuan['bentukPenyerahan']; ?>
+                    </div>
                 </div>
-            </div>
+                <?php if ($ajuan['tgPenyerahan'] != '') { ?>
+                    <hr class="m-0 p-1">
+                    <div class="row bg-white darker">
+                        <div class="col-md-4">
+                            <label for="">
+                                <b>Tgl Penyerahan</b>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <?php $tgPenyerahan = explode('-', $ajuan['tgPenyerahan']); ?>
+                            <span class="bg-info text-white p-1">
+                                <?= $tgPenyerahan[2] . ' ' . $bulan[(int)$tgPenyerahan[1]] . ' ' . $tgPenyerahan[0]; ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 <?php } ?>

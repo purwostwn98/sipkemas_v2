@@ -135,4 +135,28 @@ class Dinamis extends BaseController
             exit('Maaf tidak dapat diproses');
         }
     }
+
+    public function load_lbg_user()
+    {
+        if ($this->request->isAJAX()) {
+            $level = $this->request->getVar('level');
+            if ($level == 2) {
+                $lembaga = $this->kelurahanModel->findAll();
+            } elseif ($level == 5) {
+                $lembaga = $this->mitraModel->findAll();
+            } else {
+                $lembaga = 404;
+            }
+            $data = [
+                'lembaga' => $lembaga,
+                'privUser' => $level
+            ];
+            $msg = [
+                'data' => view('tambahan/user_lembaga', $data)
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
 }
