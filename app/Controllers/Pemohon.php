@@ -163,6 +163,7 @@ class Pemohon extends BaseController
                             'idAgama' => $this->request->getVar('agama'),
                             'telepon' => $this->request->getVar('telepon'),
                             'email' => $this->request->getVar('email'),
+                            'last_masuk' => Time::now('Asia/Jakarta', 'en_US'),
                             // 'stsPendaftaran' => 0,
                         ];
                         $save = $this->pemohonModel->insert($data);
@@ -184,11 +185,140 @@ class Pemohon extends BaseController
                     echo json_encode($msg);
                 };
             } elseif ($this->request->getVar('status') == 0) {
-                $msg = [
-                    'berhasil' => [
-                        'link' => "/pemohon/formulir_ajuan_v2?n=" . bin2hex($this->encrypter->encrypt(strval($nik)))
-                    ]
-                ];
+                $pemohon = $this->pemohonModel->where('NIK', $nik)->first();
+                $idPemohon = $pemohon['idPemohon'];
+                $hslbenar = $this->request->getVar('hslbenar');
+                $jawaban = $this->request->getVar('jawabCpt');
+                if (md5($jawaban) == $hslbenar) {
+                    $validation = \Config\Services::validation();
+                    $valid = $this->validate([
+                        'NIK' => [
+                            'label' => 'NIK',
+                            'rules' => 'required|is_unique[mpemohon.NIK,NIK,{NIK}]|exact_length[16]',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                                'is_unique' => 'Maaf, {field} sudah terdaftar',
+                                'exact_length' => '{field} harus 16 angka'
+                            ]
+                        ],
+                        'gender' => [
+                            'label' => 'Jenis Kelamin',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'nama' => [
+                            'label' => 'Nama',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'tempatlahir' => [
+                            'label' => 'Tempat lahir',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'tgLahir' => [
+                            'label' => 'Tanggal lahir',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'alamat' => [
+                            'label' => 'Alamat',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'kecamatan' => [
+                            'label' => 'Kecamatan',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'kelurahan' => [
+                            'label' => 'Kelurahan',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'telepon' => [
+                            'label' => 'Telepon',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+                        'agama' => [
+                            'label' => 'Agama',
+                            'rules' => 'required',
+                            'errors' => [
+                                'required' => '{field} tidak boleh kosong',
+                            ]
+                        ],
+
+                    ]);
+
+                    if (!$valid) {
+                        $msg = [
+                            'error' => [
+                                'Nik' => $validation->getError('NIK'),
+                                'gender' => $validation->getError('gender'),
+                                'nama' => $validation->getError('nama'),
+                                'tempatlahir' => $validation->getError('tempatlahir'),
+                                'tgLahir' => $validation->getError('tgLahir'),
+                                'alamat' => $validation->getError('alamat'),
+                                'kecamatan' => $validation->getError('kecamatan'),
+                                'kelurahan' => $validation->getError('kelurahan'),
+                                'agama' => $validation->getError('agama'),
+                                'telepon' => $validation->getError('telepon'),
+                                'token' => csrf_hash(),
+                            ]
+                        ];
+                    } else {
+                        // $noDaftar = random_int(00000000, 99999999);
+                        // $noFormulir = "FR" . strval($noDaftar);
+                        $data = [
+                            // 'noFormulir' => $noFormulir,
+                            // 'NIK' => $this->request->getVar('NIK'),
+                            'Nama' => $this->request->getVar('nama'),
+                            'tgLahir' => $this->request->getVar('tgLahir'),
+                            'tempatLahir' => $this->request->getVar('tempatlahir'),
+                            'Alamat' => $this->request->getVar('alamat'),
+                            'idKel' => $this->request->getVar('kelurahan'),
+                            'gender' => $this->request->getVar('gender'),
+                            'idAgama' => $this->request->getVar('agama'),
+                            'telepon' => $this->request->getVar('telepon'),
+                            'email' => $this->request->getVar('email'),
+                            'last_masuk' => Time::now('Asia/Jakarta', 'en_US'),
+                            // 'stsPendaftaran' => 0,
+                        ];
+                        $save = $this->pemohonModel->update($idPemohon, $data);
+                        if ($save) {
+                            $msg = [
+                                'berhasil' => [
+                                    'link' => "/pemohon/formulir_ajuan_v2?n=" . bin2hex($this->encrypter->encrypt(strval($nik)))
+                                ]
+                            ];
+                        }
+                    }
+                } else {
+                    $msg = [
+                        'a' => [
+                            'b' => "Hasil perhitungan Anda salah",
+                            'token' => csrf_hash(),
+                        ]
+                    ];
+                    echo json_encode($msg);
+                };
             } else {
                 echo ('Maaf perintah anda tidak dikenali');
             }
@@ -290,6 +420,7 @@ class Pemohon extends BaseController
     {
         if ($this->request->isAJAX()) {
             // generate no ajuan
+            ini_set('upload_max_filesize', '64M');
             $noAjuan = random_int(100000000, 999999999);
             $cekNomorAjuan = $this->ajuanModel->where('noAjuan', $noAjuan)->countAllResults();
             while ($cekNomorAjuan >= 1) {
@@ -314,9 +445,16 @@ class Pemohon extends BaseController
                             'required' => '{field} tidak boleh kosong'
                         ]
                     ],
+                    'keperluan' => [
+                        'label' => 'Keperluan',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} tidak boleh kosong'
+                        ]
+                    ],
                     'files' => [
                         'label' => 'file syarat',
-                        'rules' => 'uploaded[files]|max_size[files,4096]|ext_in[files,pdf,jpeg,jpg,png]|mime_in[files,application/pdf,image/jpeg,image/jpg,image/png]',
+                        'rules' => 'uploaded[files]|max_size[files,10024]|ext_in[files,pdf,jpeg,jpg,png]|mime_in[files,application/pdf,image/jpeg,image/jpg,image/png]',
                         'errors' => [
                             'uploaded' => 'Semua {field} tidak boleh kosong',
                             'max_size' => 'Mohon maaf, ukuran {field} tidak boleh melebihi 4MB',
@@ -326,10 +464,10 @@ class Pemohon extends BaseController
                     ],
                     'srtKetPemohon' => [
                         'label' => 'File Surat Keterangan Pemohon',
-                        'rules' => 'uploaded[srtKetPemohon]|max_size[srtKetPemohon,4096]|ext_in[srtKetPemohon,pdf]|mime_in[srtKetPemohon,application/pdf]',
+                        'rules' => 'uploaded[srtKetPemohon]|max_size[srtKetPemohon,2024]|ext_in[srtKetPemohon,pdf,jpeg,jpg,png]|mime_in[srtKetPemohon,application/pdf,image/jpeg,image/jpg,image/png]',
                         'errors' => [
                             'uploaded' => '{field} tidak boleh kosong',
-                            'max_size' => 'Mohon maaf, ukuran {field} tidak boleh melebihi 4MB',
+                            'max_size' => 'Mohon maaf, ukuran {field} tidak boleh melebihi 2MB',
                             'ext_in' => 'Mohon maaf, {field} harus dalam format pdf',
                             'mime_in' => 'Mohon maaf, {field} bukan pdf',
                         ]
@@ -353,10 +491,10 @@ class Pemohon extends BaseController
                     ],
                     'files' => [
                         'label' => 'file syarat',
-                        'rules' => 'uploaded[files]|max_size[files,4096]|ext_in[files,pdf,jpeg,jpg,png]|mime_in[files,application/pdf,image/jpeg,image/jpg,image/png]',
+                        'rules' => 'uploaded[files]|max_size[files,2024]|ext_in[files,pdf,jpeg,jpg,png]|mime_in[files,application/pdf,image/jpeg,image/jpg,image/png]',
                         'errors' => [
                             'uploaded' => 'Semua {field} tidak boleh kosong',
-                            'max_size' => 'Mohon maaf, ukuran {field} tidak boleh melebihi 4MB',
+                            'max_size' => 'Mohon maaf, ukuran {field} tidak boleh melebihi 2MB',
                             'ext_in' => 'Mohon maaf, semua {field} harus dalam format pdf/jpg/jpeg/png',
                             'mime_in' => 'Mohon maaf, terdapat {field} yang bukan pdf/jpg/jpeg/png',
                         ]
@@ -368,6 +506,7 @@ class Pemohon extends BaseController
                     'error' => [
                         'jnsbantuan' => $validation->getError('jnsbantuan'),
                         'kodeBantuan' => $validation->getError('kodeBantuan'),
+                        'keperluan' => $validation->getError('keperluan'),
                         'srtKetPemohon' => $validation->getError('srtKetPemohon'),
                         'files' => $validation->getError('files'),
                         'token' => csrf_hash(),

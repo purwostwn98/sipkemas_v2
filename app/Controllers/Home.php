@@ -137,18 +137,6 @@ class Home extends BaseController
 		];
 		return view('landing/detail_bantuan', $data);
 	}
-	public function bantuan2()
-	{
-		return view('landing/detail_bantuan2');
-	}
-	public function bantuan3()
-	{
-		return view('landing/detail_bantuan3');
-	}
-	public function bantuan4()
-	{
-		return view('landing/detail_bantuan4');
-	}
 	public function daftar()
 	{
 		$a = random_int(1, 9);

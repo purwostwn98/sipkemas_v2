@@ -103,6 +103,7 @@
             <label for="telepon" class="col-sm-4 col-form-label">Telepon</label>
             <div class="col-sm-8">
                 <input type="text" name="telepon" class="form-control" id="telepon" required>
+                <small class="text-muted">Pastikan nomor telepon terisi dengan benar karena digunakan untuk keperluan komunikasi</small>
             </div>
         </div>
         <div class="form-group row">
@@ -128,21 +129,21 @@
         <div class="form-group row mt-3">
             <label for="nama" class="col-sm-4 col-form-label">Nama Lengkap</label>
             <div class="col-sm-8">
-                <input type="text" name="nama" class="form-control" id="nama" value="<?= $biodata['Nama']; ?>" readonly required>
+                <input type="text" name="nama" class="form-control" id="nama" value="<?= $biodata['Nama']; ?>" required>
             </div>
         </div>
         <!-- Tempat Lahir -->
         <div class="form-group row">
             <label for="tempatlahir" class="col-sm-4 col-form-label">Tempat Lahir</label>
             <div class="col-sm-8">
-                <input type="text" name="tempatlahir" class="form-control" id="tempatlahir" value="<?= $biodata['tempatLahir']; ?>" readonly required>
+                <input type="text" name="tempatlahir" class="form-control" id="tempatlahir" value="<?= $biodata['tempatLahir']; ?>" required>
             </div>
         </div>
         <!-- Tanggal Lahir -->
         <div class="form-group row">
             <label for="tgLahir" class="col-sm-4 col-form-label">Tanggal Lahir</label>
             <div class="col-sm-8">
-                <input type="date" name="tgLahir" class="form-control" id="tgLahir" value="<?= $biodata['tgLahir']; ?>" required readonly>
+                <input type="date" name="tgLahir" class="form-control" id="tgLahir" value="<?= $biodata['tgLahir']; ?>" readonly>
             </div>
         </div>
         <!-- Jenis Kelamin -->
@@ -150,13 +151,13 @@
             <label for="jenkel" class="col-sm-4 col-form-label">Jenis Kelamin</label>
             <div class="col-sm-8">
                 <div class="form-check">
-                    <input <?= ($biodata['gender'] == 1) ? 'checked' : ''; ?> class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="1" disabled>
+                    <input <?= ($biodata['gender'] == 1) ? 'checked' : ''; ?> class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="1">
                     <label class="form-check-label" for="exampleRadios1">
                         Laki-laki
                     </label>
                 </div>
                 <div class="form-check">
-                    <input <?= ($biodata['gender'] == 2) ? 'checked' : ''; ?> class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="2" disabled>
+                    <input <?= ($biodata['gender'] == 2) ? 'checked' : ''; ?> class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="2">
                     <label class="form-check-label" for="exampleRadios2">
                         Perempuan
                     </label>
@@ -173,7 +174,7 @@
         <div class="form-group row">
             <label for="alamat" class="col-sm-4 col-form-label">Alamat</label>
             <div class="col-sm-8">
-                <input type="text" name="alamat" class="form-control" id="alamat" value="<?= $biodata['Alamat']; ?>" readonly required>
+                <input type="text" name="alamat" class="form-control" id="alamat" value="<?= $biodata['Alamat']; ?>" required>
             </div>
         </div>
         <!-- Kecamatan -->
@@ -181,7 +182,7 @@
             <label for="kecamatan" class="col-sm-4 col-form-label">Kecamatan</label>
             <div class="col-sm-8">
                 <!-- <select class="form-control" id="kecamatan" name="kecamatan" required onchange="getKec(this);"> -->
-                <select class="form-control" id="kecamatan" name="kecamatan" required disabled>
+                <select class="form-control" id="kecamatan" name="kecamatan" required>
                     <option value="" disabled>Pilih Kecamatan</option>
                     <?php foreach ($kecamatan as $kec) { ?>
                         <option <?= ($biodata['idKec'] == $kec['idKec']) ? 'selected' : ''; ?> value="<?= $kec['idKec']; ?>"><?= $kec['Kecamatan']; ?></option>
@@ -193,7 +194,7 @@
         <div class="form-group row">
             <label for="kelurahan" class="col-sm-4 col-form-label">Kelurahan</label>
             <div class="col-sm-8">
-                <select class="form-control kelurahan" id="kelurahan" name="kelurahan" required disabled>
+                <select class="form-control kelurahan" id="kelurahan" name="kelurahan" required>
                     <?php foreach ($kelurahan as $kel) { ?>
                         <option <?= ($biodata['idKel'] == $kel['idKel']) ? 'selected' : ''; ?> value="<?= $kel['idKel']; ?>"><?= $kel['Kelurahan']; ?></option>
                     <?php } ?>
@@ -204,7 +205,7 @@
         <div class="form-group row">
             <label for="agama" class="col-sm-4 col-form-label">Agama</label>
             <div class="col-sm-8">
-                <select class="form-control" id="agama" name="agama" required disabled>
+                <select class="form-control" id="agama" name="agama" required>
                     <option value="" disabled>Pilih Agama</option>
                     <option <?= ($biodata['idAgama'] == 1) ? 'selected' : ''; ?> value="1">Islam</option>
                     <option <?= ($biodata['idAgama'] == 2) ? 'selected' : ''; ?> value="2">Protestan</option>
@@ -219,13 +220,14 @@
         <div class="form-group row">
             <label for="telepon" class="col-sm-4 col-form-label">Telepon</label>
             <div class="col-sm-8">
-                <input type="text" name="telepon" class="form-control" id="telepon" value="<?= $biodata['telepon']; ?>" required readonly>
+                <input type="text" name="telepon" class="form-control" id="telepon" value="<?= $biodata['telepon']; ?>" required>
+                <small class="text-muted">Pastikan nomor telepon terisi dengan benar karena digunakan untuk keperluan komunikasi</small>
             </div>
         </div>
         <div class="form-group row">
             <label for="email" class="col-sm-4 col-form-label">E-mail<span class="req">*</span></label>
             <div class="col-sm-8">
-                <input type="email" name="email" class="form-control" id="email" value="<?= $biodata['email']; ?>" readonly>
+                <input type="email" name="email" class="form-control" id="email" value="<?= $biodata['email']; ?>" required>
             </div>
         </div>
 

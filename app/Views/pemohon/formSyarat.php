@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-12">
         <div class="alert alert-primary" role="alert">
-            File yang diupload harus dalam format <b>pdf</b> atau <b>image(jpg,jpeg,png)</b> dengan ukuran file max 4 MB.
+            File yang diupload harus dalam format <b>pdf</b> atau <b>image(jpg,jpeg,png)</b> dengan ukuran file maksimal <b>2mb</b>.
         </div>
     </div>
 </div>

@@ -20,7 +20,8 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group has-danger">
-                        <select class="form-control col-sm-12  border-left-info animated--grow-in" name="jnsbantuan" id="div" onchange="getval(this);">
+                        <select class="form-control col-sm-12  border-left-info animated--grow-in" name="jnsbantuan" id="jenis_bantuan" onchange="getval(this);" required>
+                            <option value="" selected disabled>pilih jenis bantuan</option>
                             <option value="0">Individu</option>
                             <option value="1">Lembaga</option>
                         </select>
@@ -35,7 +36,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group has-danger">
-                        <select class="form-control col-sm-12  border-left-info animated--grow-in" name="kodeBantuan" id="kodeBantuan" onchange="getBantuan(this);">
+                        <select class="form-control col-sm-12  border-left-info animated--grow-in" name="kodeBantuan" id="kodeBantuan" onchange="getBantuan(this);" required>
                             <option value="" disabled selected>Pilih Bantuan</option>
                             <?php foreach ($bantuan as $row) { ?>
                                 <option value="<?= $row['kodeBantuan']; ?>"><?= $row['NamaMitra']; ?>: <?= $row['namaProgram']; ?></option>
@@ -58,7 +59,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rp.</div>
                             </div>
-                            <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="kebutuhan" id="inputku" placeholder="-" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
+                            <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="kebutuhan" id="inputku" placeholder="-" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" required>
                         </div>
                         <small id="nilai" class="form-text text-primary"><i>Isikan nominal bantuan yang dibutuhkan misalnya 750000</i></small>
                     </div>
@@ -71,7 +72,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group has-danger">
-                        <textarea type="text" rows="3" class="form-control col-sm-12  border-left-info animated--grow-in" name="keperluan" id="keperluan" value=""></textarea>
+                        <textarea type="text" rows="3" class="form-control col-sm-12  border-left-info animated--grow-in" name="keperluan" id="keperluan" required></textarea>
                         <small id="nilai1" class="form-text text-primary"><i>Isikan alasan mengapa mengajukan dan untuk apa bantuan digunakan</i></small>
                     </div>
                 </div>
@@ -85,7 +86,7 @@
                     <div class="col-sm-6">
                         <div class="form-group has-danger">
                             <input class="form-control col-sm-12  border-left-info animated--grow-in" type="file" id="srtKetPemohon" name="srtKetPemohon">
-                            <small id="nilai2" class="form-text text-primary"><i>Surat Keterangan Tidak Mampu dari Kelurahan bila belum terdaftar di eSik dalam format pdf. Format surat keterangan dapat didownload </i></small><a class="px-3 bg-warning text-white" style="border-radius: 5px;" target="_blank" href="<?= base_url(); ?>/dokumen/SuKet.pdf">DI SINI</a>
+                            <small id="nilai2" class="form-text text-primary"><i>Surat Keterangan Tidak Mampu dari Kelurahan dalam format pdf dgn ukuran file maksimal 2mb. Format surat keterangan dapat didownload </i></small><a class="px-3 bg-warning text-white" style="border-radius: 5px;" target="_blank" href="<?= base_url(); ?>/dokumen/SuKet.pdf">DI SINI</a>
                         </div>
                     </div>
                 </div>
@@ -93,48 +94,8 @@
         </div>
     </div>
     <!-- Identitas Lembaga -->
-    <div id="form_lembaga" style="display: none;" class="card shadow mb-4">
-        <div class="card-header py-3 bg-secondary">
-            <h6 class="m-0 font-weight-bold text-white">Identitas Lembaga</h6>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-4">
-                    <label for="">Nama Lembaga</label>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group has-danger">
-                        <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="namaLbg" id="namaLbg" value="">
-                    </div>
-                </div>
-                <div class="col-sm-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-4">
-                    <label for="">Alamat Lembaga</label>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group has-danger">
-                        <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="alamatLbg" id="alamatLbg" value="">
-                    </div>
-                </div>
-                <div class="col-sm-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-4">
-                    <label for="">No. Akta Lembaga</label>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group has-danger">
-                        <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="noAkta" id="noAkta" placeholder="Jika tidak ada isikan 0">
-                    </div>
-                </div>
-                <div class="col-sm-1"></div>
-            </div>
-        </div>
+    <div id="form_lembaga" class="card shadow mb-4">
+
     </div>
     <!-- Persyaratan Ajuan -->
     <div class="card shadow mb-4">
@@ -154,27 +115,72 @@
                 data tidak valid.</label>
         </div>
     </div>
-    <div class="row mb-3">
-        <div class="col-sm-4"> </div>
-        <button type="submit" class="btn btn-success btn-md btn-icon-split btnAjukan" target="_blank"><span class="icon text-white-50"> <i class="fas fa-check"></i></span><span class="text">Ajukan</span></button>&nbsp;&nbsp;
-        <button class="btn btn-danger btn-md btn-icon-split" onclick="del(this.value)"><span class="icon text-white-50"> <i class="fas fa-trash"></i></span><span class="text">Batal</span></button>
+    <div class="row mb-3 justify-content-center">
+        <div class="col-auto">
+            <button class="btn btn-secondary btn-md btn-icon-split" onclick="del(this.value)"><span class="icon text-white"><i class="fas fa-trash"></i></span> | <span class="text">Batal</span></button>
+            <button type="submit" class="btn btn-primary btn-md btn-icon-split btnAjukan" target="_blank"><span class="icon text-white"><i class="fas fa-check"></i></span> | <span class="text">Ajukan</span></button>&nbsp;&nbsp;
+        </div>
     </div>
     <?= form_close(); ?>
 </div>
 
 
 <script type="text/javascript" src="<?= base_url(); ?>/js/angkaRibuan.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>/assets/vendor/jquery/jquery.min2.js"></script>
+<!-- <script type="text/javascript" src="<?= base_url(); ?>/assets/vendor/jquery/jquery.min2.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
 <script>
     //Untuk hide/show form Lembaga
     function getval(sel) {
         if (sel.value == "0") {
-            $("#form_lembaga").css("display", "none");
             $('.srtKeterangan').css("display", "block");
+            $("#form_lembaga").html(" ");
         } else if (sel.value == "1") {
-            $("#form_lembaga").css("display", "block");
             $('.srtKeterangan').css("display", "none");
+            $("#form_lembaga").html(`
+            <div class="card-header py-3 bg-secondary">
+                <h6 class="m-0 font-weight-bold text-white">Identitas Lembaga</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <label for="">Nama Lembaga</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group has-danger">
+                            <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="namaLbg" id="namaLbg" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <label for="">Alamat Lembaga</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group has-danger">
+                            <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="alamatLbg" id="alamatLbg" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4">
+                        <label for="">No. Akta Lembaga</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group has-danger">
+                            <input type="text" class="form-control col-sm-12  border-left-info animated--grow-in" name="noAkta" id="noAkta" placeholder="Jika tidak ada isikan 0" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+            `);
         }
     }
 
@@ -259,7 +265,15 @@
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    console.log(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    swal({
+                        title: 'Error!',
+                        text: "Pastikan anda mengisi form dengan baik dan benar, perikasa kapasitas dan format file Anda. Jika nama file mengandung karakter asing, ubah nama menggunakan karakter yang umum",
+                        icon: "error",
+                        button: "Ok",
+                    }).then((value) => {
+                        location.reload();
+                    });
                 }
             });
             return false;

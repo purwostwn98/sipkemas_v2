@@ -13,7 +13,7 @@ class PemohonModel extends Model
     protected $updatedField  = 'updated_at_pmh';
     protected $allowedFields = [
         'Nama', 'tgLahir', 'tempatLahir', 'gender', 'NIK', 'Alamat', 'idKel', 'created_at_pmh', 'updated_at_pmh', 'idAgama',
-        'telepon', 'email'
+        'telepon', 'email', 'last_masuk'
     ];
 }
 class FormulirModel extends Model

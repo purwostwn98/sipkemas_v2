@@ -195,7 +195,7 @@
           </div>
           <div class="row">
             <ul>
-              <li><a href="<?= base_url(); ?>/dokumen/format_permohonan_baznas.pdf" target="_blank">Format Surat Permohonan Bantuan Perorangan</a></li>
+              <li><a href="<?= base_url(); ?>/dokumen/format_permohonan_baznas_2.pdf" target="_blank">Format Surat Permohonan Bantuan Perorangan</a></li>
             </ul>
           </div>
         <?php } ?>

@@ -14,7 +14,7 @@ $session = \Config\Services::session();
 
     <link href="<?= base_url(); ?>/assets/img/logo_pms.png" rel="icon" type="image/gif">
 
-    <title>Sipkemas Surakarta</title>
+    <title>SipKeMas Surakarta</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url(); ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -121,10 +121,12 @@ $session = \Config\Services::session();
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="/gerbangska/edit_user">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Edit User
-                                </a>
+                                <?php if ($session->get('privUser') != 1) { ?>
+                                    <a class="dropdown-item" href="/gerbangska/edit_user">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Edit User
+                                    </a>
+                                <?php } ?>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -148,7 +150,7 @@ $session = \Config\Services::session();
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SIPKEMAS Surakarta 2021</span>
+                        <span>Copyright &copy; <b>SipKe-Mas 2.0.0</b> Surakarta 2022</span>
                     </div>
                 </div>
             </footer>
@@ -166,12 +168,12 @@ $session = \Config\Services::session();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Anda akan keluar dari Aplikasi?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Anda akan keluar dari aplikasi?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Klik "Logout" jika Anda ingin keluar dari Aplikasi SipKe-Mas.</div>
+                <div class="modal-body">Klik "Logout" jika Anda ingin keluar dari aplikasi SipKe-Mas.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="/gerbangska/logout">Logout</a>
