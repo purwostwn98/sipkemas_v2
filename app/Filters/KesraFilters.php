@@ -11,8 +11,8 @@ class KesraFilters implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // Kondisi sebelum login
-        if (session()->get('privUser') == "") {
-            return redirect()->to('/home/index');
+        if (session()->get('login') != true) {
+            return redirect()->to('/');
         }
     }
 

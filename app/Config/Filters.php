@@ -23,10 +23,10 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'kesraFilter' => \App\Filters\KesraFilters::class,
         'pemohonFilter' => \App\Filters\PemohonFilters::class,
         'kelurahanFilter' => \App\Filters\KelurahanFilters::class,
         'dinsosFilter' => \App\Filters\DinsosFilters::class,
-        'kesraFilter' => \App\Filters\KesraFilters::class,
         'mitraFilter' => \App\Filters\MitraFilters::class
     ];
 
@@ -48,45 +48,10 @@ class Filters extends BaseConfig
                 'Kesra', 'kesra/mitraPdf',
                 'Dinamis', 'dinamis/*'
             ]],
-            'pemohonFilter' => ['except' => [
-                'gerbangska', 'gerbangska/*',
-                'home', 'home/*',
-                'pemohon', 'pemohon/frpemohon',
-                'pemohon', 'pemohon/proses_daftar',
-                'pemohon', 'pemohon/cetak_noajuan/*',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/formulir_ajuan_v2',
-                'pemohon', 'pemohon/ajukanBantuan',
-                'Dinamis', 'dinamis/*'
-            ]],
-            'kelurahanFilter' => ['except' => [
-                'gerbangska', 'gerbangska/*',
-                'home', 'home/*',
-                'pemohon', 'pemohon/frpemohon',
-                'pemohon', 'pemohon/proses_daftar',
-                'pemohon', 'pemohon/cetak_noajuan/*',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/formulir_ajuan_v2',
-                'pemohon', 'pemohon/ajukanBantuan',
-                'Dinamis', 'dinamis/*'
-            ]],
-            'dinsosFilter' => ['except' => [
-                'gerbangska', 'gerbangska/*',
-                'home', 'home/*',
-                'pemohon', 'pemohon/frpemohon',
-                'pemohon', 'pemohon/proses_daftar',
-                'pemohon', 'pemohon/cetak_noajuan/*',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/formulir_ajuan_v2',
-                'pemohon', 'pemohon/ajukanBantuan',
-                'Dinamis', 'dinamis/*'
-            ]],
             'kesraFilter' => ['except' => [
-                'gerbangska', 'gerbangska/*',
+                '/',
                 'home', 'home/*',
+                'gerbangska', 'gerbangska/*',
                 'pemohon', 'pemohon/frpemohon',
                 'pemohon', 'pemohon/proses_daftar',
                 'pemohon', 'pemohon/cetak_noajuan/*',
@@ -96,18 +61,58 @@ class Filters extends BaseConfig
                 'pemohon', 'pemohon/ajukanBantuan',
                 'Dinamis', 'dinamis/*'
             ]],
-            'mitraFilter' => ['except' => [
-                'gerbangska', 'gerbangska/*',
-                'home', 'home/*',
-                'pemohon', 'pemohon/frpemohon',
-                'pemohon', 'pemohon/proses_daftar',
-                'pemohon', 'pemohon/cetak_noajuan/*',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/prosesCekAjuan',
-                'pemohon', 'pemohon/formulir_ajuan_v2',
-                'pemohon', 'pemohon/ajukanBantuan',
-                'Dinamis', 'dinamis/*'
-            ]],
+            // 'pemohonFilter' => ['except' => [
+            //     '/',
+            //     'home', 'home/*',
+            //     'gerbangska', 'gerbangska/*',
+            //     'pemohon', 'pemohon/frpemohon',
+            //     'pemohon', 'pemohon/proses_daftar',
+            //     'pemohon', 'pemohon/cetak_noajuan/*',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/formulir_ajuan_v2',
+            //     'pemohon', 'pemohon/ajukanBantuan',
+            //     'Dinamis', 'dinamis/*'
+            // ]],
+            // 'kelurahanFilter' => ['except' => [
+            //     '/',
+            //     'home', 'home/*',
+            //     'gerbangska', 'gerbangska/*',
+            //     'pemohon', 'pemohon/frpemohon',
+            //     'pemohon', 'pemohon/proses_daftar',
+            //     'pemohon', 'pemohon/cetak_noajuan/*',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/formulir_ajuan_v2',
+            //     'pemohon', 'pemohon/ajukanBantuan',
+            //     'Dinamis', 'dinamis/*'
+            // ]],
+            // 'dinsosFilter' => ['except' => [
+            //     '/',
+            //     'home', 'home/*',
+            //     'gerbangska', 'gerbangska/*',
+            //     'pemohon', 'pemohon/frpemohon',
+            //     'pemohon', 'pemohon/proses_daftar',
+            //     'pemohon', 'pemohon/cetak_noajuan/*',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/formulir_ajuan_v2',
+            //     'pemohon', 'pemohon/ajukanBantuan',
+            //     'Dinamis', 'dinamis/*'
+            // ]],
+            // 'mitraFilter' => ['except' => [
+            //     '/',
+            //     'home', 'home/*',
+            //     'gerbangska', 'gerbangska/*',
+            //     'pemohon', 'pemohon/frpemohon',
+            //     'pemohon', 'pemohon/proses_daftar',
+            //     'pemohon', 'pemohon/cetak_noajuan/*',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/prosesCekAjuan',
+            //     'pemohon', 'pemohon/formulir_ajuan_v2',
+            //     'pemohon', 'pemohon/ajukanBantuan',
+            //     'Dinamis', 'dinamis/*'
+            // ]],
         ],
         //yang boleh diakses setelah login
         'after'  => [

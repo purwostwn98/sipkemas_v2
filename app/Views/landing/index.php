@@ -227,7 +227,8 @@ $session = \Config\Services::session();
 
 </main><!-- End #main -->
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<script src="<?= base_url(); ?>/js/chart.js"></script>
 <script>
   const labels = [
     <?php foreach ($dataProgram as $program => $jml) : ?> "<?= $program; ?>",

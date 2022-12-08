@@ -8,7 +8,6 @@
     <title>SipKe-Mas Surakarta</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.gstatic.com;"> -->
 
     <!-- Favicons -->
     <link href="<?= base_url(); ?>/assets/img/logo_pms.png" rel="icon">
@@ -30,11 +29,10 @@
     <link href="<?= base_url(); ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/css/alur.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <!-- Pie Chart -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <!-- Sweat Alert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="<?= base_url(); ?>/js/sweetalert.min.js"></script>
 
     <!-- =======================================================
   * Template Name: OnePage - v2.2.2

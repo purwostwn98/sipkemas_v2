@@ -11,9 +11,9 @@ class MitraFilters implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // Kondisi sebelum login
-        if (session()->get('privUser') == "") {
-            return redirect()->to('/home/index');
-        }
+        // if (session()->get('privUser') != 5) {
+        //     return redirect()->to('/');
+        // }
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
